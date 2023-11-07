@@ -1,0 +1,2 @@
+const mongoose=require("mongoose");
+mongoose.connect("mongodb+srv://AmeySW:Amey7531@cluster0.eynpgin.mongodb.net/bookcrud?retryWrites=true&w=majority").then((res)=>console.log("Database Connected Successfully"));

@@ -1,0 +1,14 @@
+.Home-Page{
+    width: 100%;
+    min-height: 91.5vh;
+    max-height: auto;
+}
+
+.homeimg{
+    height: 70%;
+    width: 75%;
+}
+
+.viewBook{
+    text-decoration: none;
+}
