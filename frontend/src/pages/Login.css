@@ -1,0 +1,27 @@
+input{
+    padding: 12px;
+    width: 36vw;
+    border-radius: 6px;
+    border: 1px solid silver;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+button{
+    border-radius: 7px;
+    padding: 7px;
+    color: white;
+    width: 36vw;
+    border: none;
+    font-size: larger;
+    font-weight: bold;
+    background: #40faa8;
+}
+
+form{
+    border: 1px solid silver;
+    padding: 22px;
+    text-align: center;
+    border-radius: 5px;
+    width: 39vw;
+}

@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 function AddBooks() {
     const navigate=useNavigate();
@@ -10,9 +12,20 @@ function AddBooks() {
         author:"",
         description:"",
         image:"",
-        price:""
+        price:"",
+        stockstatus:"Available for purchase",
+        category:""
     })
-
+    const [catData,setCatData]=useState([])
+    useEffect(()=>{
+        const fetchCategory=async()=>{
+            await axios.get("http://localhost:1000/api/v1/getCategory")
+            .then(res=>setCatData(res.data.cat))
+            .catch(error=>console.log(error));
+        }
+        fetchCategory();
+      
+    },[])
     const change=(e)=>{
     
 
@@ -33,39 +46,59 @@ function AddBooks() {
     }
 console.log(Data);
   return (
-    <div className='bg-dark'>
-            <h4 className='text-white bg-dark text-center p-3'>Add Books</h4>
-            <Link className='text-decoration-none' style={{marginLeft:'122px',fontSize:"x-large",marginTop:"50px",color:"silver",border:'1px solid silver',borderRadius:'7px',padding:'10px'}} to="/books">Back</Link>
-    <div className='bg-dark d-flex justify-content-center align-items-center' style={{minHeight:"91.5vh"}}>
+    <>
+    <div className=''>
+            <h3 className=' text-center p-3'><b>Add Books</b></h3>
+          
+    <div className=' d-flex justify-content-center align-items-center' style={{minHeight:"91.5vh"}}>
+
+
 
         <div className='container p-4'>
+
+        <div className="mb-3">
+                <label for="exampleFormControlInput1" style={{fontSize:"large",fontWeight:"bold"}} className="form-label">Category</label> <br/>
+
+                <select name="category" style={{padding:"7px",width:'83vw',border:'1px solid silver',borderRadius:"7px",marginTop:"12px"}} onChange={change} required>
+                <option>-- Select Category --</option>
+                    {catData.map((item,index)=>(
+
+                    <option  value={item.catname}>{item.catname}</option>
+                    ))}
+                    
+                </select>
+            </div>
             <div className="mb-3">
-                <label for="exampleFormControlInput1" className="form-label text-white">Book Name</label>
-                <input type="text" name='bookname' value={Data.bookname} className="form-control" id="exampleFormControlInput1" placeholder="Enter Book Name" autoComplete='off' onChange={change}/>
+                <label for="exampleFormControlInput1" style={{fontSize:"large",fontWeight:"bold"}} className="form-label">Book Name</label>
+                <input type="text" name='bookname' value={Data.bookname} className="form-control" id="exampleFormControlInput1" style={{pointerEvents:"all"}} placeholder="Enter Book Name" autoComplete='off' onChange={change} required/>
             </div>
             
         
             <div className="mb-3">
-                <label for="exampleFormControlInput1" className="form-label text-white">Author</label>
-                <input type="text" name='author' value={Data.author}  onChange={change} className="form-control" id="exampleFormControlInput1" autoComplete='off' placeholder="Enter The Name Of Author"/>
+                <label for="exampleFormControlInput1" style={{fontSize:"large",fontWeight:"bold"}} className="form-label">Author</label>
+                <input type="text" name='author' value={Data.author} style={{pointerEvents:"all"}}  onChange={change} className="form-control" id="exampleFormControlInput1" autoComplete='off' placeholder="Enter The Name Of Author" required/>
             </div>
             <div className="mb-3">
-                <label for="exampleFormControlInput1" className="form-label text-white">Description</label>
-                <input type="text" name='description' value={Data.description} onChange={change} className="form-control" id="exampleFormControlInput1" autoComplete='off' placeholder="Enter Description Of The Book"/>
+                <label for="exampleFormControlInput1" style={{fontSize:"large",fontWeight:"bold"}} className="form-label">Description</label>
+                <textarea type="text" name='description' style={{pointerEvents:"all",padding:'10px'}} value={Data.description} onChange={change} className="form-control" id="exampleFormControlInput1" autoComplete='off' placeholder="Enter Description Of The Book" required/>
             
         </div>
             <div className="mb-3">
-                <label for="exampleFormControlInput1" className="form-label text-white">Image Url</label>
-                <input type="text" name='image' value={Data.image} onChange={change} className="form-control" id="exampleFormControlInput1" autoComplete='off' placeholder="Enter The URL Of The Image"/>
+                <label for="exampleFormControlInput1" style={{fontSize:"large",fontWeight:"bold"}} className="form-label">Image Url</label> 
+                <input type="text" name='image' value={Data.image} style={{pointerEvents:"all"}} onChange={change} className="form-control" id="exampleFormControlInput1" autoComplete='off' placeholder="Enter The URL Of The Image" required/>
             </div>
             <div className="mb-3">
-                <label for="exampleFormControlInput1" className="form-label text-white">Price</label>
-                <input type="number" name='price' value={Data.price} onChange={change} className="form-control" id="exampleFormControlInput1" autoComplete='off' placeholder="Enter The Price Of Book"/>
+                <label for="exampleFormControlInput1" style={{fontSize:"large",fontWeight:"bold"}} className="form-label">Price</label>
+                <input type="number" name='price' value={Data.price} style={{pointerEvents:"all"}} onChange={change} className="form-control" id="exampleFormControlInput1" autoComplete='off' placeholder="Enter The Price Of Book" required/>
             </div>
-            <button className='btn btn-success' onClick={submit}>Submit</button>
+           <div style={{display:"grid",gridTemplateColumns:"auto auto",justifyContent:"space-between"}}>
+            <button className='btn btn-success' style={{width:"7vw",fontSize:"larger",fontWeight:"bolder"}} onClick={submit} type='submit'>Add</button>
+            <Link className='btn btn-danger' style={{width:"7vw",fontSize:"larger",fontWeight:"bolder"}} to="/books"> Cancel</Link>
+            </div>
         </div>
     </div>
     </div>
+    </>
 )
 }
 

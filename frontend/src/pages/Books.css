@@ -1,0 +1,14 @@
+input:focus{
+    outline: none;
+}
+
+/* .cat {
+    position: sticky;
+    top: 10vh;
+    width: 20%;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    border: 1px solid silver;
+    border-radius: 7px;
+    padding: 20px;
+  } */

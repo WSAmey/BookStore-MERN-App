@@ -1,4 +1,4 @@
-const mongoose=require('mongoose');
+import mongoose from 'mongoose';
 
 const bookSchema =new mongoose.Schema({
 
@@ -22,6 +22,14 @@ const bookSchema =new mongoose.Schema({
         type:Number,
         required:true
     },
+    stockstatus:{
+        type:String,
+        required:true
+    },
+    category:{
+        type:String,
+        required:true
+    }
 })
 
-module.exports=new mongoose.model("book",bookSchema);
+ export default new mongoose.model("book",bookSchema);

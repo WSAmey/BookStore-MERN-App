@@ -1,69 +1,42 @@
 
-const router=require('express').Router();
-const bookSchema = require('../models/booksModel.js')
+import {addBook, getBooks, getBooksById, updateBook, deleteBook, getBooksByStock, updateStock, bookCategory, getBooksByCategory } from '../controllers/bookController.js';
+import express from 'express'
 
+
+const router=express.Router();
 //add book
-router.post("/add",async(req,res)=>{
-    try {
-       const data=req.body;
-       const newBook=new bookSchema(data);
-       await newBook.save().then(()=>{
-        res.status(200).json({message:" Book Added Successfully"})
-       }); 
-    } catch (error) {
-        console.log(error);
-    }
-})
+router.post("/add",addBook)
 
 //get books
-router.get("/getBooks",async(req,res)=>{
-    let books;
-    try {
-    books = await bookSchema.find();
-    res.status(200).json({books})
-    } catch (error) {
-        console.log(error);
-    }
-})
+router.get("/getBooks",getBooks)
 
 
 //get book by id
-router.get("/getBooksById/:id",async(req,res)=>{
-    let book;
-    const id=req.params.id;
-    try {
-       book= await bookSchema.findById(id); 
-    res.status(200).json({book});
-    } catch (error) {
-        console.log(error);
-    }
-})
+router.get("/getBooksById/:id",getBooksById)
 
 
 //update book
-router.put("/updateBook/:id",async(req,res)=>{
-    const id=req.params.id;
-    let book;
-    // const {bookname,description,author,image,price}  =  req.body;
-    try {
-    book = await bookSchema.findByIdAndUpdate(id,req.body,{new:true}); 
-    res.status(200).json({message:" Data Updated Successfully"})
-    } catch (error) {
-        console.log(error);
-    }
-})
+router.put("/updateBook/:id",updateBook)
 
 //delete book
 
-router.delete("/deleteBook/:id",async(req,res)=>{
-    const id=req.params.id;
-    try {
-        await bookSchema.findByIdAndDelete(id);
-        res.status(200).json({message:"Book Deleted Successfully"})
-    } catch (error) {
-        console.log(error);
-    }
-})
+router.delete("/deleteBook/:id",deleteBook)
+
+//get books by stock status
+
+router.get("/getBooksByStock/:stock",getBooksByStock)
+
+//update book by id and stock status
+
+router.put("/updateStock/:id",updateStock);
+
+//get book categories
+
+router.get("/getBookCategories",bookCategory);
+
+//get book by category
+
+router.get("/getBooksByCategory/:category",getBooksByCategory);
 
 
-module.exports= router;
+export default router;
