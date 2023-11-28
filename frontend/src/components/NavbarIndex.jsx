@@ -23,7 +23,7 @@ const NavbarIndex = (props) => {
                     Books
                   </Link>
                   <Link className="nav-item nav-link active text-light" to="">
-                    <i class="fa-solid fa-cart-shopping"></i><sup style={{marginRight:"4px"}}> {props.prodcount}</sup>
+                    <i class="fa-solid fa-cart-shopping"></i><sup style={{marginRight:"4px"}}> { props.prodcount>0 && props.prodcount }</sup>
                      Cart 
                   </Link> 
                   <Link className="nav-item nav-link active text-light" to="/contactus">
