@@ -11,6 +11,7 @@ function BooksIndex() {
 
   const [Data,setData]=useState([]);
   const [catData,setCatData]=useState([]);
+  const [count,setCount]=useState(0);
 
   
   const fetch=async ()=>{
@@ -39,7 +40,11 @@ function BooksIndex() {
 
  },[])
 
- 
+ const productCount=()=>{
+    setCount(count+1);
+    toast.success('Book was successfully added to the cart!')
+ }
+
 
   const filterBooks=(e)=>{
     const searchTerm=e.target.value;
@@ -69,11 +74,10 @@ function BooksIndex() {
   }
   return (
     <>
-    <NavbarIndex/>
+    <NavbarIndex prodcount={count}/>
     <div className='' style={{minHeight:"91.5vh"}}>
       <div className=''>
         <h3 className='text-center mt-3' style={{fontWeight:"bold"}}>Books Section</h3>
-        <b>  <Link className='text-decoration-none' style={{marginLeft:'75px',fontSize:"medium",marginTop:"50px",color:"grey"}} to="/adminPanel"><i style={{fontSize:"small"}} class="fa-solid fa-chevron-left"></i> Back To Dashboard</Link> </b>
       </div>
       {Data ? 
       (
@@ -141,7 +145,7 @@ function BooksIndex() {
       {item.description.slice(0, 100)}...
       <Link to={`/viewMoreIndex/${item._id}`} style={{ textDecoration: 'none' }}>View More</Link>
     </h6>
-          {item.stockstatus==="Available for purchase" && <button style={{fontSize:"large",fontWeight:"bold",width:"9vw",background:"#e4e40b"}}>Add To Cart</button>}
+          {item.stockstatus==="Available for purchase" && <button style={{fontSize:"large",fontWeight:"bold",width:"9vw",background:"#e4e40b"}} onClick={productCount}>Add To Cart</button>}
   </div>
 </div>
 
