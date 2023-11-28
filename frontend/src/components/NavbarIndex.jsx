@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-const NavbarIndex = () => {
+const NavbarIndex = (props) => {
 
 
   return (
@@ -23,8 +23,9 @@ const NavbarIndex = () => {
                     Books
                   </Link>
                   <Link className="nav-item nav-link active text-light" to="">
-                    Cart <i class="fa-solid fa-cart-shopping"></i> 
-                  </Link>
+                    <i class="fa-solid fa-cart-shopping"></i><sup style={{marginRight:"4px"}}> {props.prodcount}</sup>
+                     Cart 
+                  </Link> 
                   <Link className="nav-item nav-link active text-light" to="/contactus">
                     Contact Us
                   </Link>
